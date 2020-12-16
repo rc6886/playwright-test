@@ -1,8 +1,14 @@
 version: 2.1
+workflows:
+  build_workflow:
+    jobs:
+      - build
+      - build_docker
 jobs:
   build:
-    docker:
-      - image: mcr.microsoft.com/playwright:bionic
+    machine:
+      image: mcr.microsoft.com/playwright:bionic
+      docker_layer_caching: true
     steps:
       - checkout
       - run:
@@ -11,6 +17,12 @@ jobs:
       - run:
           name: Run Playwright UI Tests
           command: npm run test
+  build_docker:
+    machine:
+      image: ubuntu-1604:201903-01
+      docker_layer_caching: true
+    steps:
+      - checkout
       - run:
           name: Build UI Tests Image
           command: docker build . -t rc6886/ui-scripts:latest
