@@ -12,9 +12,9 @@ jobs:
           name: Run Playwright UI Tests
           command: npm run test
   build_docker:
-    docker:
-      - image: ubuntu-1604:201903-01
     steps:
+      - setup_remote_docker:
+        version: 19.03.13
       - checkout
       - run:
           name: Docker Login
@@ -30,4 +30,7 @@ workflows:
   build_workflow:
     jobs:
       - build
-      - build_docker
+      - build_docker:
+          requires:
+            - build
+
