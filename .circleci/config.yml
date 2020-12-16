@@ -1,12 +1,7 @@
 version: 2.1
-workflows:
-  build_workflow:
-    jobs:
-      - build
-      - build_docker
 jobs:
   build:
-    machine:
+
       image: mcr.microsoft.com/playwright:bionic
     steps:
       - checkout
@@ -22,8 +17,17 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Docker Login
+          command: docker login -u "$DOCKERHUB_USER" -p "$DOCKERHUB_PASS"
+      - run:
           name: Build UI Tests Image
           command: docker build . -t rc6886/ui-scripts:latest
       - run:
           name: Push UI Tests Image to DockerHub
           command: docker image push rc6886/ui-scripts:latest
+workflows:
+  version: 2
+  build_workflow:
+    jobs:
+      - build
+      - build_docker
