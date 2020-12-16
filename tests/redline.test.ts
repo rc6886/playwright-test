@@ -2,6 +2,10 @@ describe("RedLine Smoke Tests", () => {
     it("Should Login to RedLine", async () => {
         await page.goto("https://apps.gsfsgroup.hawking.dimebox.io");
 
+        await page.waitForSelector("//button[text()='Login']", {
+            state: "visible",
+        });
+
         await page.click("//button[text()='Login']");
 
         const { REDLINE_USER, REDLINE_PASSWORD } = process.env;
