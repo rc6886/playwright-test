@@ -1,6 +1,6 @@
 // https://github.com/playwright-community/jest-playwright/#configuration
 module.exports = {
-    browsers: ["chromium", "firefox"],
+    browsers: ["chromium", "firefox", "webkit"],
     launchOptions: {
         headless: true,
         timeout: 20000,

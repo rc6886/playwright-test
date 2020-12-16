@@ -5,6 +5,7 @@
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "sourceRoot": "./tests",
     "types": [
       "@types/jest",
       "jest-playwright-preset",
