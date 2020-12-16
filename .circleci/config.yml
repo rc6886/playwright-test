@@ -1,8 +1,7 @@
 version: 2.1
 jobs:
   build:
-
-      image: mcr.microsoft.com/playwright:bionic
+    image: mcr.microsoft.com/playwright:bionic
     steps:
       - checkout
       - run:
@@ -12,8 +11,7 @@ jobs:
           name: Run Playwright UI Tests
           command: npm run test
   build_docker:
-    machine:
-      image: ubuntu-1604:201903-01
+    image: ubuntu-1604:201903-01
     steps:
       - checkout
       - run:
