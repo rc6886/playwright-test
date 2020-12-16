@@ -1,4 +1,5 @@
-version: 2.1
+version: 2.0
+
 jobs:
   build:
     docker:
@@ -25,12 +26,13 @@ jobs:
       - run:
           name: Push UI Tests Image to DockerHub
           command: docker image push rc6886/ui-scripts:latest
+
 workflows:
   version: 2
-  build_workflow:
+  build-workflow:
     jobs:
       - build
-      - build_docker:
+      - build-docker:
           requires:
             - build
 
