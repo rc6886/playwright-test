@@ -12,7 +12,7 @@ jobs:
       - run:
           name: Run Playwright UI Tests
           command: npm run test
-  build_docker:
+  build-docker:
     machine: true
     steps:
       - checkout
