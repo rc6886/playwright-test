@@ -1,4 +1,5 @@
 version: 2.1
+
 jobs:
   build:
     docker:
@@ -8,4 +9,28 @@ jobs:
       - run:
           name: NPM Install
           command: npm install
-      - run: npm run test
+      - run:
+          name: Run Playwright UI Tests
+          command: npm run test
+  build-docker:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Docker Login
+          command: docker login -u "$DOCKERHUB_USER" -p "$DOCKERHUB_PASS"
+      - run:
+          name: Build UI Tests Image
+          command: docker build . -t rc6886/ui-scripts:latest
+      - run:
+          name: Push UI Tests Image to DockerHub
+          command: docker image push rc6886/ui-scripts:latest
+
+workflows:
+  build-workflow:
+    jobs:
+      - build
+      - build-docker:
+          requires:
+            - build
+
